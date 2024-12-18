@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://kedjcsikvgqu"]
+
+[ext_resource type="Texture2D" uid="uid://cqlcu4g3td5fx" path="res://assets/sprites/blob_guy_walk-export1.png" id="1_rlisn"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="BlobGuyWalk-export1" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(572, 235)
+rotation = 0.253143
+scale = Vector2(21.6548, 21.6548)
+texture = ExtResource("1_rlisn")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_right = 1160.0
+offset_bottom = 650.0
+
+[node name="Control" type="Control" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -471.0
+offset_top = -146.0
+offset_right = 471.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 85
+bbcode_enabled = true
+text = "[wave amp=50.0 freq=5.0 connected=1]Blob with a Wizard Hat"

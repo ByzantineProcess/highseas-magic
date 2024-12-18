@@ -1,0 +1,144 @@
+[gd_scene load_steps=20 format=3 uid="uid://5uorfm2xkn2d"]
+
+[ext_resource type="Texture2D" uid="uid://h6argiuyneb8" path="res://assets/sprites/blob_guy_walk-Sheet.png" id="1_f1tkt"]
+[ext_resource type="Script" path="res://player.gd" id="1_ntsfs"]
+[ext_resource type="Texture2D" uid="uid://cwjx87rd3v6ey" path="res://assets/sprites/blob_guy_jump-Sheet.png" id="2_2s2ek"]
+[ext_resource type="Texture2D" uid="uid://kpd2n530w4m" path="res://assets/sprites/arrow.png" id="4_wf3ty"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ugft"]
+atlas = ExtResource("2_2s2ek")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8i4wf"]
+atlas = ExtResource("2_2s2ek")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ko6ei"]
+atlas = ExtResource("2_2s2ek")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4m0e"]
+atlas = ExtResource("2_2s2ek")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egrf8"]
+atlas = ExtResource("2_2s2ek")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4m7ge"]
+atlas = ExtResource("2_2s2ek")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vitjr"]
+atlas = ExtResource("2_2s2ek")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phi7c"]
+atlas = ExtResource("2_2s2ek")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yj2to"]
+atlas = ExtResource("1_f1tkt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfdgm"]
+atlas = ExtResource("1_f1tkt")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k52ci"]
+atlas = ExtResource("1_f1tkt")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ril7"]
+atlas = ExtResource("1_f1tkt")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3cvv8"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_3ugft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8i4wf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ko6ei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4m0e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egrf8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4m7ge")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vitjr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phi7c")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yj2to")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfdgm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k52ci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ril7")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kc7ba"]
+radius = 7.99945
+height = 25.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_e87pg"]
+polygon = PackedVector2Array(6, -3, 2, -3, 2, -2, -3, -2, -3, -1, -6, -1, -6, -2, -9, -2, -9, -1, -11, -1, -11, 1, -12, 1, -12, 6, -11, 6, -11, 8, -10, 8, -10, 9, -7, 9, -7, 10, -2, 10, -2, 11, 2, 11, 2, 10, 9, 10, 9, 9, 11, 9, 11, 7, 12, 7, 12, 3, 11, 3, 11, -2, 10, -2, 10, -3, 9, -3, 9, -4, 6, -4)
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_ntsfs")
+
+[node name="AniSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3cvv8")
+animation = &"jump"
+frame_progress = 0.700528
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_kc7ba")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_e87pg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_bottom = 850
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="Arrow" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.556863)
+scale = Vector2(1.33333, 1.33333)
+texture = ExtResource("4_wf3ty")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 12.55)

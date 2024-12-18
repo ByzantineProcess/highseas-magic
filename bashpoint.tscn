@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://hosk0yd8vif"]
+
+[ext_resource type="Texture2D" uid="uid://ckvx8nomlm868" path="res://assets/sprites/bp.tres" id="1_h6m8f"]
+[ext_resource type="Texture2D" uid="uid://dw45vf8eutdft" path="res://assets/sprites/terrainsheet.png" id="1_rrwo2"]
+[ext_resource type="Script" path="res://bashpoint.gd" id="3_x86gn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgac4"]
+atlas = ExtResource("1_rrwo2")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m1flq"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("1_h6m8f")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_tgac4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6v357"]
+radius = 19.0263
+
+[node name="BashPoint" type="AnimatedSprite2D"]
+modulate = Color(1, 1, 1, 0.756863)
+scale = Vector2(1.25, 1.25)
+sprite_frames = SubResource("SpriteFrames_m1flq")
+frame_progress = 0.352365
+script = ExtResource("3_x86gn")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_6v357")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
