@@ -4,9 +4,10 @@ extends CharacterBody2D
 const SPEED = 10.0
 const JUMP_VELOCITY = -350.0
 
+@export var lock = false
 var should_walk = true
 var bash_mode = false
-var bashable = true
+var bashable = false
 var jumping_rn = false
 var bash_timer = 0.0
 var should_bash_anyway = false
@@ -14,6 +15,7 @@ var cant_bash_for = 0.0
 
 func set_bashable(yesno: bool):
 	bashable = yesno
+	
 
 func _bash():
 	# exiting bash mode, do the bash.
@@ -25,6 +27,9 @@ func _bash():
 	cant_bash_for = 0.3
 	#print(distance_vector.normalized() * SPEED)
 
+func _ready() -> void:
+	lock = false
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -35,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		should_walk = false
 		jumping_rn = true
-	if is_on_floor() and not Input.is_action_just_pressed("jump"):
+	if is_on_floor() and not Input.is_action_pressed("jump"):
 		should_walk = true
 		jumping_rn = false
 	
@@ -67,13 +72,13 @@ func _physics_process(delta: float) -> void:
 		bash_mode = true
 		$Arrow.visible = true
 		Engine.time_scale = lerp(Engine.time_scale, 0.005, 0.18)
+		$ReboundParticles.emitting = true
 		bash_timer += delta
-		print(bash_timer)
-		if bash_timer > 0.19:
+		if bash_timer > 0.18:
 			bash_timer = 0.0
 			bash_mode = false
 			should_bash_anyway = true
-			cant_bash_for = 0.3
+			cant_bash_for = 0.5
 	if not Input.is_action_pressed("bash") or not bashable or should_bash_anyway:
 		if should_bash_anyway:
 			print(bash_mode)
@@ -88,5 +93,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 300
 	if velocity.x < -300:
 		velocity.x = -300
+	if lock:
+		velocity = Vector2()
 	
 	move_and_slide()

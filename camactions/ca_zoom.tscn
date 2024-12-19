@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://du4otgq1c80tq"]
+
+[ext_resource type="Script" path="res://camactions/ca_zoom.gd" id="1_3n5q4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7copp"]
+
+[node name="CaZoom" type="Node2D"]
+script = ExtResource("1_3n5q4")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_7copp")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

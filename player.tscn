@@ -1,9 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://5uorfm2xkn2d"]
+[gd_scene load_steps=21 format=3 uid="uid://5uorfm2xkn2d"]
 
 [ext_resource type="Texture2D" uid="uid://h6argiuyneb8" path="res://assets/sprites/blob_guy_walk-Sheet.png" id="1_f1tkt"]
 [ext_resource type="Script" path="res://player.gd" id="1_ntsfs"]
 [ext_resource type="Texture2D" uid="uid://cwjx87rd3v6ey" path="res://assets/sprites/blob_guy_jump-Sheet.png" id="2_2s2ek"]
 [ext_resource type="Texture2D" uid="uid://kpd2n530w4m" path="res://assets/sprites/arrow.png" id="4_wf3ty"]
+
+[sub_resource type="Gradient" id="Gradient_1x7x7"]
+colors = PackedColorArray(0.92549, 0.54902, 0.847059, 1, 1, 1, 1, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3ugft"]
 atlas = ExtResource("2_2s2ek")
@@ -113,10 +116,31 @@ polygon = PackedVector2Array(6, -3, 2, -3, 2, -2, -3, -2, -3, -1, -6, -1, -6, -2
 scale = Vector2(2, 2)
 script = ExtResource("1_ntsfs")
 
+[node name="ReboundParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 25
+lifetime = 1.66
+one_shot = true
+speed_scale = 4.1
+explosiveness = 1.0
+randomness = 1.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+gravity = Vector2(0, 0)
+angular_velocity_min = -243.55
+angular_velocity_max = -243.55
+radial_accel_min = 48.15
+radial_accel_max = 143.2
+scale_amount_min = 3.65
+scale_amount_max = 3.65
+color = Color(0.927289, 0.54768, 0.8454, 1)
+color_ramp = SubResource("Gradient_1x7x7")
+
 [node name="AniSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3cvv8")
 animation = &"jump"
-frame_progress = 0.700528
+frame_progress = 0.853671
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 2)
@@ -125,8 +149,10 @@ shape = SubResource("CapsuleShape2D_kc7ba")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_e87pg")
+sdf_collision = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
+light_mask = 3
 limit_left = 0
 limit_bottom = 850
 limit_smoothed = true
@@ -142,3 +168,19 @@ texture = ExtResource("4_wf3ty")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, 12.55)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 48
+lifetime = 0.9
+randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 61.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -243.55
+angular_velocity_max = -243.55
+radial_accel_min = -74.5
+radial_accel_max = -74.5
+scale_amount_min = 3.65
+scale_amount_max = 3.65
+color = Color(0.927289, 0.54768, 0.8454, 1)
