@@ -71,17 +71,18 @@ func _physics_process(delta: float) -> void:
 		#print("making bashmode true")
 		bash_mode = true
 		$Arrow.visible = true
-		Engine.time_scale = lerp(Engine.time_scale, 0.005, 0.18)
+		Engine.time_scale = lerp(Engine.time_scale, 0.005, 0.4)
 		$ReboundParticles.emitting = true
 		bash_timer += delta
-		if bash_timer > 0.18:
+		#print(bash_timer)
+		if bash_timer > 0.078:
 			bash_timer = 0.0
 			bash_mode = false
 			should_bash_anyway = true
 			cant_bash_for = 0.5
 	if not Input.is_action_pressed("bash") or not bashable or should_bash_anyway:
-		if should_bash_anyway:
-			print(bash_mode)
+		#if should_bash_anyway:
+			#print(bash_mode)
 		if bash_mode or should_bash_anyway:
 			bash_mode = false
 			_bash()
