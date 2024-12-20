@@ -5,6 +5,9 @@ const SPEED = 10.0
 const JUMP_VELOCITY = -350.0
 
 @export var lock = false
+@export var unlocked_bash = false
+@export var unlocked_leap = false
+@export var spam_leap_protection = false
 var should_walk = true
 var bash_mode = false
 var bashable = false
@@ -12,10 +15,25 @@ var jumping_rn = false
 var bash_timer = 0.0
 var should_bash_anyway = false
 var cant_bash_for = 0.0
+var leap_mode = false
+var leap_scale = 0.0
+var leap_chain = 0
+var should_reset_leapchain = false
+var just_finished_leap = false
 
 func set_bashable(yesno: bool):
-	bashable = yesno
-	
+	if unlocked_bash:
+		bashable = yesno
+
+func start_leap():
+	if unlocked_leap:
+		#print("not resetting leapchain anymore! starting a new leap")
+		should_reset_leapchain = false
+		lock = true
+		leap_mode = true
+		$LeapOverlay.visible = true
+		leap_scale = 1
+		leap_chain += 1
 
 func _bash():
 	# exiting bash mode, do the bash.
@@ -43,6 +61,9 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor() and not Input.is_action_pressed("jump"):
 		should_walk = true
 		jumping_rn = false
+	if is_on_floor() and should_reset_leapchain and leap_chain > 0:
+		#print("alright, leapchain reset!")
+		leap_chain = 0
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -58,14 +79,53 @@ func _physics_process(delta: float) -> void:
 	if $RayCast2D.is_colliding() and should_walk:
 		$AniSprite.play("walk")
 	
+	if not $RayCast2D.is_colliding() and just_finished_leap and not should_reset_leapchain:
+		should_reset_leapchain = true
+		just_finished_leap = false
+		#print("hey! i'll reset your leapchain as soon as you land.")
+	
+	# meteor leap code here, wow ig i like nesting?
+	if Input.is_action_just_pressed("leap"):
+		if $LeapCast.is_colliding():
+			if $LeapCast.get_collider().name == "LeapTiles":
+				start_leap()
+	
+	if leap_mode:
+		$LeapOverlay.play("default")
+		leap_scale += delta
+		if is_on_floor() or $RayCast2D.is_colliding():
+			just_finished_leap = true
+			leap_mode = false
+			lock = false
+			const leap_mult = 2.25
+			if spam_leap_protection:
+				velocity.y = -300 * leap_scale * leap_mult / leap_chain
+			else:
+				velocity.y = -300 * leap_scale * leap_mult
+			$LeapOverlay.visible = false
+			print("finished a leap!")
+			print("your leap's velocity was:")
+			print(velocity.y)
+			print("values were:")
+			print(leap_chain)
+	
 	if bash_mode:
 		bash_timer += delta
-		$Camera2D.zoom.x = lerp($Camera2D.zoom.x, 1.3, 0.2)
-		$Camera2D.zoom.y = lerp($Camera2D.zoom.y, 1.3, 0.2)
+		$Camera2D.zoom.x = lerp($Camera2D.zoom.x, 1.2, 0.2)
+		$Camera2D.zoom.y = lerp($Camera2D.zoom.y, 1.2, 0.2)
 		$Arrow.look_at($Camera2D.get_global_mouse_position())
+	elif leap_mode:
+		$Camera2D.zoom.x = lerp($Camera2D.zoom.x, 0.8, 0.2)
+		$Camera2D.zoom.y = lerp($Camera2D.zoom.y, 0.8, 0.2)
+		$PointLight2D.scale.x = lerp($PointLight2D.scale.x, leap_scale / 5, 0.2)
+		$PointLight2D.scale.y = lerp($PointLight2D.scale.y, leap_scale / 5, 0.2)
+		$PointLight2D.energy = leap_scale
 	else:
 		$Camera2D.zoom.x = lerp($Camera2D.zoom.x, 1.0, 0.2)
 		$Camera2D.zoom.y = lerp($Camera2D.zoom.y, 1.0, 0.2)
+		$PointLight2D.scale.x = lerp($PointLight2D.scale.x, 0.0, 0.2)
+		$PointLight2D.scale.y = lerp($PointLight2D.scale.y, 0.0, 0.2)
+
 	
 	if Input.is_action_pressed("bash") and not is_on_floor() and bashable and cant_bash_for < 0:
 		#print("making bashmode true")
@@ -96,5 +156,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = -300
 	if lock:
 		velocity = Vector2()
+		if leap_mode:
+			velocity = Vector2(0.0, 800.0)
 	
 	move_and_slide()

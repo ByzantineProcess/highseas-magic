@@ -1,9 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://5uorfm2xkn2d"]
+[gd_scene load_steps=26 format=3 uid="uid://5uorfm2xkn2d"]
 
 [ext_resource type="Texture2D" uid="uid://h6argiuyneb8" path="res://assets/sprites/blob_guy_walk-Sheet.png" id="1_f1tkt"]
 [ext_resource type="Script" path="res://player.gd" id="1_ntsfs"]
 [ext_resource type="Texture2D" uid="uid://cwjx87rd3v6ey" path="res://assets/sprites/blob_guy_jump-Sheet.png" id="2_2s2ek"]
 [ext_resource type="Texture2D" uid="uid://kpd2n530w4m" path="res://assets/sprites/arrow.png" id="4_wf3ty"]
+[ext_resource type="Texture2D" uid="uid://cmb4wckok7pfc" path="res://assets/sprites/leapoverlaysheet.png" id="5_d6an8"]
+[ext_resource type="Texture2D" uid="uid://c10q3k8plj57j" path="res://assets/sprites/fademap.png" id="6_fmang"]
 
 [sub_resource type="Gradient" id="Gradient_1x7x7"]
 colors = PackedColorArray(0.92549, 0.54902, 0.847059, 1, 1, 1, 1, 0)
@@ -112,11 +114,54 @@ height = 25.0
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_e87pg"]
 polygon = PackedVector2Array(6, -3, 2, -3, 2, -2, -3, -2, -3, -1, -6, -1, -6, -2, -9, -2, -9, -1, -11, -1, -11, 1, -12, 1, -12, 6, -11, 6, -11, 8, -10, 8, -10, 9, -7, 9, -7, 10, -2, 10, -2, 11, 2, 11, 2, 10, 9, 10, 9, 9, 11, 9, 11, 7, 12, 7, 12, 3, 11, 3, 11, -2, 10, -2, 10, -3, 9, -3, 9, -4, 6, -4)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlx5w"]
+atlas = ExtResource("5_d6an8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sa86v"]
+atlas = ExtResource("5_d6an8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0u7q8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rlx5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sa86v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_ntsfs")
 
 [node name="ReboundParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 25
+lifetime = 1.66
+one_shot = true
+speed_scale = 4.1
+explosiveness = 1.0
+randomness = 1.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+gravity = Vector2(0, 0)
+angular_velocity_min = -243.55
+angular_velocity_max = -243.55
+radial_accel_min = 48.15
+radial_accel_max = 143.2
+scale_amount_min = 3.65
+scale_amount_max = 3.65
+color = Color(0.927289, 0.54768, 0.8454, 1)
+color_ramp = SubResource("Gradient_1x7x7")
+
+[node name="LeapParticles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 25
 lifetime = 1.66
@@ -171,6 +216,9 @@ texture = ExtResource("4_wf3ty")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, 12.55)
 
+[node name="LeapCast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 1000)
+
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 48
@@ -186,3 +234,16 @@ radial_accel_max = -74.5
 scale_amount_min = 3.65
 scale_amount_max = 3.65
 color = Color(0.927289, 0.54768, 0.8454, 1)
+
+[node name="LeapOverlay" type="AnimatedSprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.815686)
+light_mask = 0
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_0u7q8")
+frame_progress = 0.0556153
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(0.3735, 0.3735)
+color = Color(1, 0.2459, 0.844992, 1)
+texture = ExtResource("6_fmang")
