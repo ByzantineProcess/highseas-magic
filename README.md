@@ -11,3 +11,4 @@ All assets are original **EXCEPT FOR:**
 
 All sprites were made in Aseprite and paint.net
 
+Check Github releases for playable downloads, or try the web version: 
