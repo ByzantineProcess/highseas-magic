@@ -18,5 +18,5 @@ func _on_leap_spell_seq_trigger_body_entered(body: Node2D) -> void:
 	active = true
 	if body.name == "Player" and not playedLeap:
 		play("LeapSpellGrant")
-	playedBash = true
+	playedLeap = true
 	pass

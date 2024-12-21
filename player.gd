@@ -20,6 +20,7 @@ var leap_scale = 0.0
 var leap_chain = 0
 var should_reset_leapchain = false
 var just_finished_leap = false
+var zoomout = false
 
 func set_bashable(yesno: bool):
 	if unlocked_bash:
@@ -64,6 +65,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor() and should_reset_leapchain and leap_chain > 0:
 		#print("alright, leapchain reset!")
 		leap_chain = 0
+		should_reset_leapchain = false
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -85,10 +87,17 @@ func _physics_process(delta: float) -> void:
 		#print("hey! i'll reset your leapchain as soon as you land.")
 	
 	# meteor leap code here, wow ig i like nesting?
-	if Input.is_action_just_pressed("leap"):
+	if Input.is_action_just_pressed("leap") and not $RayCast2D.is_colliding() and not is_on_floor():
 		if $LeapCast.is_colliding():
 			if $LeapCast.get_collider().name == "LeapTiles":
 				start_leap()
+	if Input.is_action_pressed("leap") and $RayCast2D.is_colliding() and not should_reset_leapchain:
+		zoomout = true
+		$Camera2D.zoom.x = lerp($Camera2D.zoom.x, 0.6, 0.2)
+		$Camera2D.zoom.y = lerp($Camera2D.zoom.y, 0.6, 0.2)
+		$Camera2D.offset.y = lerp($Camera2D.offset.y, 100.0, 0.2)
+	else:
+		zoomout = false
 	
 	if leap_mode:
 		$LeapOverlay.play("default")
@@ -114,18 +123,25 @@ func _physics_process(delta: float) -> void:
 		$Camera2D.zoom.x = lerp($Camera2D.zoom.x, 1.2, 0.2)
 		$Camera2D.zoom.y = lerp($Camera2D.zoom.y, 1.2, 0.2)
 		$Arrow.look_at($Camera2D.get_global_mouse_position())
-	elif leap_mode:
+	elif leap_mode or should_reset_leapchain and not is_on_floor():
 		$Camera2D.zoom.x = lerp($Camera2D.zoom.x, 0.8, 0.2)
 		$Camera2D.zoom.y = lerp($Camera2D.zoom.y, 0.8, 0.2)
-		$PointLight2D.scale.x = lerp($PointLight2D.scale.x, leap_scale / 5, 0.2)
-		$PointLight2D.scale.y = lerp($PointLight2D.scale.y, leap_scale / 5, 0.2)
-		$PointLight2D.energy = leap_scale
+		if leap_mode:
+			$PointLight2D.scale.x = lerp($PointLight2D.scale.x, leap_scale / 5, 0.2)
+			$PointLight2D.scale.y = lerp($PointLight2D.scale.y, leap_scale / 5, 0.2)
+			$PointLight2D.energy = leap_scale
+		else:
+			$PointLight2D.scale.x = lerp($PointLight2D.scale.x, 0.0, 0.2)
+			$PointLight2D.scale.y = lerp($PointLight2D.scale.y, 0.0, 0.2)
 	else:
-		$Camera2D.zoom.x = lerp($Camera2D.zoom.x, 1.0, 0.2)
-		$Camera2D.zoom.y = lerp($Camera2D.zoom.y, 1.0, 0.2)
+		if not zoomout:
+			$Camera2D.zoom.x = lerp($Camera2D.zoom.x, 1.0, 0.2)
+			$Camera2D.zoom.y = lerp($Camera2D.zoom.y, 1.0, 0.2)
+			$Camera2D.offset.y = lerp($Camera2D.offset.y, 0.0, 0.2)
 		$PointLight2D.scale.x = lerp($PointLight2D.scale.x, 0.0, 0.2)
 		$PointLight2D.scale.y = lerp($PointLight2D.scale.y, 0.0, 0.2)
-
+	
+	
 	
 	if Input.is_action_pressed("bash") and not is_on_floor() and bashable and cant_bash_for < 0:
 		#print("making bashmode true")

@@ -14,17 +14,23 @@ light_mask = 0
 offset_right = 1157.0
 offset_bottom = 651.0
 
-[node name="SpellText" type="RichTextLabel" parent="."]
+[node name="Rebound" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SpellText" type="RichTextLabel" parent="Rebound"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 496.0
-offset_top = 201.0
-offset_right = 1076.0
-offset_bottom = 359.0
+offset_left = 476.0
+offset_top = 181.0
+offset_right = 1056.0
+offset_bottom = 339.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("1_60qqa")
@@ -32,47 +38,123 @@ theme_override_font_sizes/normal_font_size = 150
 bbcode_enabled = true
 text = "[wave amp=50.0 freq=5.0 connected=1]Rebound"
 
-[node name="HasLearntText" type="RichTextLabel" parent="."]
+[node name="HasLearntText" type="RichTextLabel" parent="Rebound"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 496.0
-offset_top = 151.0
-offset_right = 1076.0
-offset_bottom = 205.0
+offset_left = 476.0
+offset_top = 131.0
+offset_right = 1056.0
+offset_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("1_60qqa")
-theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/normal_font_size = 39
 text = "Blob has learnt..."
 
-[node name="SpellDesc" type="RichTextLabel" parent="."]
+[node name="SpellDesc" type="RichTextLabel" parent="Rebound"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 496.0
-offset_top = 344.0
-offset_right = 1076.0
-offset_bottom = 496.0
+offset_left = 476.0
+offset_top = 324.0
+offset_right = 1056.0
+offset_bottom = 476.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("1_60qqa")
-theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/normal_font_size = 35
 text = "Jump off magical Rebound
 Points
 by holding right mouse!"
 
-[node name="Bp" type="Sprite2D" parent="."]
-position = Vector2(635, 407)
+[node name="Bp" type="Sprite2D" parent="Rebound"]
+position = Vector2(632, 421)
 texture = ExtResource("2_vk7ds")
 
-[node name="Reboundicon" type="Sprite2D" parent="."]
+[node name="Reboundicon" type="Sprite2D" parent="Rebound"]
+light_mask = 0
+position = Vector2(289, 312)
+scale = Vector2(11.3125, 11.3125)
+texture = ExtResource("3_o6b5h")
+
+[node name="Leap" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SpellText" type="RichTextLabel" parent="Leap"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 476.0
+offset_top = 151.0
+offset_right = 1056.0
+offset_bottom = 309.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_60qqa")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[wave amp=50.0 freq=5.0 connected=1]Meteorleap"
+
+[node name="HasLearntText" type="RichTextLabel" parent="Leap"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 476.0
+offset_top = 101.0
+offset_right = 1056.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 39
+text = "Blob has learnt..."
+
+[node name="SpellDesc" type="RichTextLabel" parent="Leap"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 476.0
+offset_top = 284.0
+offset_right = 1056.0
+offset_bottom = 436.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 35
+text = "Press S to dive straight down onto Leap Blocks, giving Blob a big boost!"
+
+[node name="CaveatEmptor" type="RichTextLabel" parent="Leap"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 476.0
+offset_top = 436.0
+offset_right = 884.0
+offset_bottom = 494.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 18
+text = "Longer dives result in bigger leaps.
+Blob has a limited number of dives available "
+
+[node name="Reboundicon" type="Sprite2D" parent="Leap"]
 light_mask = 0
 position = Vector2(289, 312)
 scale = Vector2(11.3125, 11.3125)

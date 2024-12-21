@@ -236,8 +236,6 @@ scale_amount_max = 3.65
 color = Color(0.927289, 0.54768, 0.8454, 1)
 
 [node name="LeapOverlay" type="AnimatedSprite2D" parent="."]
-visible = false
-modulate = Color(1, 1, 1, 0.815686)
 light_mask = 0
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_0u7q8")
