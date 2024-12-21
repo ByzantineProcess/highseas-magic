@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://5uorfm2xkn2d"]
+[gd_scene load_steps=27 format=3 uid="uid://5uorfm2xkn2d"]
 
 [ext_resource type="Texture2D" uid="uid://h6argiuyneb8" path="res://assets/sprites/blob_guy_walk-Sheet.png" id="1_f1tkt"]
 [ext_resource type="Script" path="res://player.gd" id="1_ntsfs"]
 [ext_resource type="Texture2D" uid="uid://cwjx87rd3v6ey" path="res://assets/sprites/blob_guy_jump-Sheet.png" id="2_2s2ek"]
+[ext_resource type="PackedScene" uid="uid://c6ipdnngrwi8q" path="res://hud.tscn" id="4_bvifp"]
 [ext_resource type="Texture2D" uid="uid://kpd2n530w4m" path="res://assets/sprites/arrow.png" id="4_wf3ty"]
 [ext_resource type="Texture2D" uid="uid://cmb4wckok7pfc" path="res://assets/sprites/leapoverlaysheet.png" id="5_d6an8"]
 [ext_resource type="Texture2D" uid="uid://c10q3k8plj57j" path="res://assets/sprites/fademap.png" id="6_fmang"]
@@ -207,6 +208,8 @@ drag_vertical_enabled = true
 drag_top_margin = 0.1
 drag_bottom_margin = 0.1
 
+[node name="Hud" parent="Camera2D" instance=ExtResource("4_bvifp")]
+
 [node name="Arrow" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0.556863)
@@ -245,3 +248,5 @@ frame_progress = 0.0556153
 scale = Vector2(0.3735, 0.3735)
 color = Color(1, 0.2459, 0.844992, 1)
 texture = ExtResource("6_fmang")
+
+[editable path="Camera2D/Hud"]

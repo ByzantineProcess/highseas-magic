@@ -8,6 +8,7 @@ const JUMP_VELOCITY = -350.0
 @export var unlocked_bash = false
 @export var unlocked_leap = false
 @export var spam_leap_protection = false
+@export var leaps = 0
 var should_walk = true
 var bash_mode = false
 var bashable = false
@@ -27,7 +28,7 @@ func set_bashable(yesno: bool):
 		bashable = yesno
 
 func start_leap():
-	if unlocked_leap:
+	if unlocked_leap and leaps > 0:
 		#print("not resetting leapchain anymore! starting a new leap")
 		should_reset_leapchain = false
 		lock = true
@@ -35,6 +36,7 @@ func start_leap():
 		$LeapOverlay.visible = true
 		leap_scale = 1
 		leap_chain += 1
+		leaps -= 1
 
 func _bash():
 	# exiting bash mode, do the bash.
@@ -117,6 +119,11 @@ func _physics_process(delta: float) -> void:
 			print(velocity.y)
 			print("values were:")
 			print(leap_chain)
+	
+	# hud code
+	if unlocked_bash:
+		$Camera2D/Hud/LearntSpells/Reboundicon.visible = true
+	
 	
 	if bash_mode:
 		bash_timer += delta

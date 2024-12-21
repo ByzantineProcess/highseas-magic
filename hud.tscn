@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6ipdnngrwi8q"]
+
+[ext_resource type="Texture2D" uid="uid://cqlcu4g3td5fx" path="res://assets/sprites/blob_guy_walk-export1.png" id="1_41dn7"]
+[ext_resource type="Texture2D" uid="uid://b18moqnrgji5g" path="res://assets/sprites/reboundicon.png" id="2_pbti2"]
+[ext_resource type="Texture2D" uid="uid://cnl8puhjvkyo3" path="res://assets/sprites/leapicon.png" id="3_rbdr0"]
+
+[node name="Hud" type="CanvasLayer"]
+
+[node name="BlobGuyWalk-export1" type="Sprite2D" parent="."]
+light_mask = 0
+position = Vector2(576, 597)
+scale = Vector2(2, 2)
+texture = ExtResource("1_41dn7")
+
+[node name="LearntSpells" type="Node2D" parent="."]
+
+[node name="Reboundicon" type="Sprite2D" parent="LearntSpells"]
+position = Vector2(50, 596)
+scale = Vector2(2, 2)
+texture = ExtResource("2_pbti2")
+
+[node name="Reboundicon2" type="Sprite2D" parent="LearntSpells"]
+position = Vector2(121, 596)
+scale = Vector2(2, 2)
+texture = ExtResource("3_rbdr0")
