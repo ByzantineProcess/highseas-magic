@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6ipdnngrwi8q"]
+[gd_scene load_steps=5 format=3 uid="uid://c6ipdnngrwi8q"]
 
 [ext_resource type="Texture2D" uid="uid://cqlcu4g3td5fx" path="res://assets/sprites/blob_guy_walk-export1.png" id="1_41dn7"]
 [ext_resource type="Texture2D" uid="uid://b18moqnrgji5g" path="res://assets/sprites/reboundicon.png" id="2_pbti2"]
 [ext_resource type="Texture2D" uid="uid://cnl8puhjvkyo3" path="res://assets/sprites/leapicon.png" id="3_rbdr0"]
+[ext_resource type="FontFile" uid="uid://bjh3c8tnhmqom" path="res://assets/fonts/Roboto-Regular.ttf" id="4_cosme"]
 
 [node name="Hud" type="CanvasLayer"]
 
@@ -19,7 +20,33 @@ position = Vector2(50, 596)
 scale = Vector2(2, 2)
 texture = ExtResource("2_pbti2")
 
-[node name="Reboundicon2" type="Sprite2D" parent="LearntSpells"]
-position = Vector2(121, 596)
+[node name="LeapIcon" type="Sprite2D" parent="LearntSpells"]
+position = Vector2(1096, 596)
 scale = Vector2(2, 2)
 texture = ExtResource("3_rbdr0")
+
+[node name="LeapCount" type="RichTextLabel" parent="LearntSpells/LeapIcon"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -29.0
+offset_right = 29.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.525, 0.525)
+theme_override_fonts/normal_font = ExtResource("4_cosme")
+theme_override_font_sizes/normal_font_size = 40
+text = "0"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 19.0
+offset_top = 18.0
+offset_right = 294.0
+offset_bottom = 66.0
+theme_override_fonts/normal_font = ExtResource("4_cosme")
+theme_override_font_sizes/normal_font_size = 30
+text = "Goal: Exit the cave"

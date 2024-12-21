@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cggb3pe2g5vme"]
+[gd_scene load_steps=5 format=3 uid="uid://cggb3pe2g5vme"]
 
 [ext_resource type="FontFile" uid="uid://bglcn6j8jj2pv" path="res://UnifrakturMaguntia-Regular.ttf" id="1_60qqa"]
 [ext_resource type="Texture2D" uid="uid://ckvx8nomlm868" path="res://assets/sprites/bp.tres" id="2_vk7ds"]
 [ext_resource type="Texture2D" uid="uid://b18moqnrgji5g" path="res://assets/sprites/reboundicon.png" id="3_o6b5h"]
+[ext_resource type="Texture2D" uid="uid://cnl8puhjvkyo3" path="res://assets/sprites/leapicon.png" id="4_f32qa"]
 
 [node name="Learnt" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 
@@ -83,6 +85,7 @@ scale = Vector2(11.3125, 11.3125)
 texture = ExtResource("3_o6b5h")
 
 [node name="Leap" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -158,4 +161,4 @@ Blob has a limited number of dives available "
 light_mask = 0
 position = Vector2(289, 312)
 scale = Vector2(11.3125, 11.3125)
-texture = ExtResource("3_o6b5h")
+texture = ExtResource("4_f32qa")

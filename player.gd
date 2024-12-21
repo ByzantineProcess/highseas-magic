@@ -27,6 +27,9 @@ func set_bashable(yesno: bool):
 	if unlocked_bash:
 		bashable = yesno
 
+func fire_bash_particles():
+	$ReboundParticles.emitting = true
+
 func start_leap():
 	if unlocked_leap and leaps > 0:
 		#print("not resetting leapchain anymore! starting a new leap")
@@ -68,6 +71,8 @@ func _physics_process(delta: float) -> void:
 		#print("alright, leapchain reset!")
 		leap_chain = 0
 		should_reset_leapchain = false
+	
+	$Camera2D/Hud/LearntSpells/LeapIcon/LeapCount.text = str(leaps)
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -123,6 +128,8 @@ func _physics_process(delta: float) -> void:
 	# hud code
 	if unlocked_bash:
 		$Camera2D/Hud/LearntSpells/Reboundicon.visible = true
+	if unlocked_leap:
+		$Camera2D/Hud/LearntSpells/LeapIcon.visible = true
 	
 	
 	if bash_mode:
