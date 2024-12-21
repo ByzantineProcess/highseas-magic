@@ -11,4 +11,6 @@ All assets are original **EXCEPT FOR:**
 
 All sprites were made in Aseprite and paint.net
 
-Check Github releases for playable downloads, or try the web version: 
+Check Github releases for playable downloads, or try the web version: https://byzantineprocess.github.io/highseas-magic/
+
+(the web version doesn't upscale correctly like desktop does and I have no idea why)
